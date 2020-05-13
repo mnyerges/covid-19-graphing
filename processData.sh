@@ -5,14 +5,14 @@ awk -F "," '
 		NR==1{print $1","$2","$3",newcases,newdeaths"}
 		NR==2{pcase=$2; pdeath=$3; print $1","$2","$3",0,0"}
 		NR>2{print $1","$2","$3","$2-pcase","$3-pdeath; pcase=$2; pdeath=$3}
-' ../us.csv > country/us.csv
+' ../covid-19-data/us.csv > country/us.csv
 gnuplot -e "titel='US'; filename='country/us.csv'; outpt='country/us.png" graphCountry
 
-cat ../us-states.csv | awk -F "," 'NR>1{print $2}' | sort -u | while read -r state; do
+cat ../covid-19-data/us-states.csv | awk -F "," 'NR>1{print $2}' | sort -u | while read -r state; do
 	echo $state
 	# process the state
-	cat ../us-states.csv | grep date > "states/${state}.csv"
-	cat ../us-states.csv | grep "$state" >> "states/${state}.csv"
+	cat ../covid-19-data/us-states.csv | grep date > "states/${state}.csv"
+	cat ../covid-19-data/us-states.csv | grep "$state" >> "states/${state}.csv"
 	awk -F "," '
 		NR==1{print $1","$2","$3","$4","$5",newcases,newdeaths"}
 		NR==2{pcase=$4; pdeath=$5; print $1","$2","$3","$4","$5",0,0"}
@@ -26,13 +26,13 @@ cat ../us-states.csv | awk -F "," 'NR>1{print $2}' | sort -u | while read -r sta
 	fi
 	
 	#process each county in the state
-	cat ../us-counties.csv | grep $state | awk -F "," '{print $4}' | sort -u | while read -r mip; do
+	cat ../covid-19-data/us-counties.csv | grep $state | awk -F "," '{print $4}' | sort -u | while read -r mip; do
 		if [ "" == "$mip" ]; then
 			continue
 		fi
 		echo -n "$state-$mip..."
-		cat ../us-counties.csv | grep date > "counties/${state}-${mip}.csv"
-		cat ../us-counties.csv | grep $state | grep $mip >> "counties/${state}-${mip}.csv"
+		cat ../covid-19-data/us-counties.csv | grep date > "counties/${state}-${mip}.csv"
+		cat ../covid-19-data/us-counties.csv | grep $state | grep $mip >> "counties/${state}-${mip}.csv"
 		awk -F "," '
 			NR==1{print $1","$2","$3","$4","$5","$6",newcases,newdeaths"}
 			NR==2{pcase=$5; pdeath=$6; print $1","$2","$3","$4","$5","$6",0,0"}

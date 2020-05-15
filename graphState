@@ -36,7 +36,7 @@ unset logscale y2
 unset y2tics
 unset y2label
 set boxwidth 0.9 relative
-plot filename using 1:6 with boxes
+plot filename using 1:6 with boxes, '' using 1:8 with lines
 set title 'New Deaths'
-plot filename using 1:7 with boxes
+plot filename using 1:7 with boxes, '' using 1:9 with lines
 unset multiplot

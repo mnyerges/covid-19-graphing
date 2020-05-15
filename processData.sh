@@ -14,6 +14,10 @@ then
     exit -1
 fi
 
+mkdir country
+mkdir states
+mkdir counties
+
 #supplement data with daily case/death differential
 awk -F "," '
 		NR==1{print $1","$2","$3",newcases,newdeaths"}

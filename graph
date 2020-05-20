@@ -30,7 +30,7 @@ plot filename using 1:5:xtic(1) with linespoints, '' using 1:6 with linespoints 
 set title 'New Cases'
 unset logscale y
 unset logscale y2
-unset y2tics
+#unset y2tics
 unset y2label
 set boxwidth 0.9 relative
 plot filename using 1:7:xtic(1) with boxes, '' using 1:9 with lines

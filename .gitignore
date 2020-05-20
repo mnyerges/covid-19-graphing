@@ -3,3 +3,5 @@ states
 country
 tmp.csv
 graph-test
+scripts.txt
+server.sh
